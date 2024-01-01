@@ -1,4 +1,4 @@
-export const getCategoryData = (data: any) => {
+export const getCategoryFromData = (data: any) => {
   let temp: any = {};
 
   data.map((ele: any) => {
