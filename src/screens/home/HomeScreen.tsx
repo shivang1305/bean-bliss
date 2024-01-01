@@ -1,8 +1,10 @@
-import {Text, View} from 'react-native';
+import {ScrollView, StatusBar, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {useStore} from '../store/store';
-import {getCategoryFromData, getCoffeeList} from '../utils/helper';
+import {useStore} from '../../store/store';
+import {getCategoryFromData, getCoffeeList} from '../../utils/helper';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import styles from './HomeScreen.style';
+import {COLORS} from '../../theme/theme';
 
 const HomeScreen = () => {
   const CoffeeList = useStore((state: any) => state.CoffeeList);
@@ -19,8 +21,15 @@ const HomeScreen = () => {
   );
 
   const tabBarHeight = useBottomTabBarHeight();
+
   return (
-    <View>
+    <View style={styles.ScreenContainer}>
+      <StatusBar backgroundColor={COLORS.primaryBlackHex} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.ScrollViewFlex}>
+        {/* App Header */}
+      </ScrollView>
       <Text>HomeScreen</Text>
     </View>
   );
