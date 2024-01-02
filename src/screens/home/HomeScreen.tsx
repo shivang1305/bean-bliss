@@ -1,4 +1,5 @@
 import {
+  FlatList,
   ScrollView,
   StatusBar,
   Text,
@@ -14,6 +15,7 @@ import styles from './HomeScreen.style';
 import {COLORS, FONTSIZE} from '../../theme/theme';
 import HeaderBar from '../../components/HeaderBar';
 import CustomIcon from '../../components/CustomIcon';
+import CoffeeCard from '../../components/CoffeeCard';
 
 const HomeScreen = () => {
   const CoffeeList = useStore((state: any) => state.CoffeeList);
@@ -104,6 +106,33 @@ const HomeScreen = () => {
             </View>
           ))}
         </ScrollView>
+
+        {/* Coffee Flatlist */}
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={sortedCoffee}
+          contentContainerStyle={styles.FlatListContainer}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity>
+                <CoffeeCard
+                  id={item.id}
+                  index={item.index}
+                  type={item.type}
+                  roasted={item.roasted}
+                  imagelink_square={item.imagelink_square}
+                  name={item.name}
+                  special_ingredient={item.special_ingredient}
+                  average_rating={item.average_rating}
+                  prices={item.prices[2]}
+                  buttonPressHandler={() => {}}
+                />
+              </TouchableOpacity>
+            );
+          }}
+        />
       </ScrollView>
     </View>
   );
