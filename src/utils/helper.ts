@@ -3,11 +3,19 @@ export const getCategoryFromData = (data: any) => {
 
   data.map((ele: any) => {
     if (temp[ele.name] === undefined) {
-      temp[ele] = 1;
+      temp[ele.name] = 1;
     } else {
-      temp[ele]++;
+      temp[ele.name]++;
     }
   });
+
+  // for(let i = 0; i < data.length; i++) {
+  //   if (temp[ele.name] === undefined) {
+  //     temp[ele] = 1;
+  //   } else {
+  //     temp[ele]++;
+  //   }
+  // }
 
   let categories = Object.keys(temp);
   categories.unshift('All');
