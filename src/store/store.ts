@@ -6,11 +6,11 @@ import CoffeeData from '../data/CoffeeData';
 import BeansData from '../data/BeansData';
 import {create} from 'zustand';
 import {produce} from 'immer';
-import {sortArray} from '../utils/helper';
+import {getSplicedIndex, sortArray} from '../utils/helper';
 
 export const useStore = create(
   persist(
-    set => ({
+    (set, get) => ({
       CoffeeList: CoffeeData,
       BeanList: BeansData,
       CartPrice: 0,
@@ -94,6 +94,36 @@ export const useStore = create(
                 }
               }
             }
+          }),
+        ),
+      deleteFromFavorites: (type: string, id: string) =>
+        set(
+          produce(state => {
+            if (type === 'Coffee') {
+              for (let i = 0; i < state.CoffeeList.length; i++) {
+                if (
+                  state.CoffeeList.id === id &&
+                  state.CoffeeList.favourite === true
+                ) {
+                  state.CoffeeList.favourite = false;
+                  break;
+                }
+              }
+            } else if (type === 'Beans') {
+              for (let i = 0; i < state.BeanList.length; i++) {
+                if (
+                  state.BeanList.id === id &&
+                  state.BeanList.favourite === false
+                ) {
+                  state.BeanList.favourite = true;
+                  break;
+                }
+              }
+            }
+
+            // get the spliced index
+            let spliceIndex = getSplicedIndex(state.FavoritesList, id);
+            state.FavoritesList.splice(spliceIndex, 1);
           }),
         ),
     }),

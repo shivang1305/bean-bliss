@@ -40,3 +40,14 @@ export const sortArray = (data: any) => {
     return 0;
   });
 };
+
+export const getSplicedIndex = (data: any, id: string) => {
+  let spliceIndex = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].id === id) {
+      spliceIndex = i;
+      break;
+    }
+  }
+  return spliceIndex;
+};
