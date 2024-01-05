@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 export const getCategoryFromData = (data: any) => {
   let temp: any = {};
 
@@ -30,4 +31,12 @@ export const getCoffeeList = (category: string, data: any) => {
     let coffeeList = data.filter((item: any) => item.name === category);
     return coffeeList;
   }
+};
+
+export const sortArray = (data: any) => {
+  data.sort((a: any, b: any) => {
+    if (a.size > b.size) return -1;
+    if (a.size < b.size) return 1;
+    return 0;
+  });
 };
