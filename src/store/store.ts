@@ -10,7 +10,7 @@ import {sortArray} from '../utils/helper';
 
 export const useStore = create(
   persist(
-    (set, get) => ({
+    set => ({
       CoffeeList: CoffeeData,
       BeanList: BeansData,
       CartPrice: 0,
@@ -49,6 +49,51 @@ export const useStore = create(
 
             // when the item is not found in the cart
             if (!isItemFound) state.CartList.push(cartItem);
+          }),
+        ),
+      calculateCartPrice: () =>
+        set(
+          produce(state => {
+            let totalPrice = 0;
+
+            state.cartList.map((cartItem: any) => {
+              let tempPrice = 0;
+
+              cartItem.prices.map((priceObj: any) => {
+                tempPrice += parseFloat(priceObj.price) * priceObj.quantity;
+              });
+
+              cartItem.itemPrice = tempPrice.toFixed(2).toString();
+              totalPrice += tempPrice;
+            });
+          }),
+        ),
+      addToFavorites: (type: string, id: string) =>
+        set(
+          produce(state => {
+            if (type === 'Coffee') {
+              for (let i = 0; i < state.CoffeeList.length; i++) {
+                if (
+                  state.CoffeeList.id === id &&
+                  state.CoffeeList.favourite === false
+                ) {
+                  state.CoffeeList.favourite = true;
+                  state.FavoritesList.unshift(state.CoffeeList[i]);
+                  break;
+                }
+              }
+            } else if (type === 'Beans') {
+              for (let i = 0; i < state.BeanList.length; i++) {
+                if (
+                  state.BeanList.id === id &&
+                  state.BeanList.favourite === false
+                ) {
+                  state.BeanList.favourite = true;
+                  state.FavoritesList.unshift(state.CoffeeList[i]);
+                  break;
+                }
+              }
+            }
           }),
         ),
     }),
