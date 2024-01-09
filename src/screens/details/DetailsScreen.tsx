@@ -4,7 +4,7 @@ import {useStore} from 'zustand';
 
 const DetailsScreen = ({navigation, route}: any) => {
   const itemOfIndex = useStore((state: any) =>
-    route.params.type == 'Coffee' ? state.CoffeeList : state.BeanList,
+    route.params.type === 'Coffee' ? state.CoffeeList : state.BeanList,
   )[route.params.index];
 
   return (
