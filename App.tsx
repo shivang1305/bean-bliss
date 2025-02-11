@@ -4,11 +4,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from './src/screens/details/DetailsScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
 import TabNavigator from './src/navigators/TabNavigator';
+// import SignupScreen from './src/screens/signup/SignupScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
+    // <SignupScreen />
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen
